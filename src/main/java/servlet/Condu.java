@@ -37,15 +37,28 @@ public class Condu extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String decisionParam = request.getParameter("purpose");
-        String statusParam = request.getParameter("status");
+        String abortParam = request.getParameter("abort");
+        String createParam = request.getParameter("Create");
+        String modifyParam = request.getParameter("Modify");
         if(decisionParam.equals("C")) {
-            if (statusParam == null) {
+            if (abortParam == null && createParam != null) {
                 String nom = request.getParameter("nom");
                 String prenom = request.getParameter("prenom");
 
                 Conducteur conducteur = new Conducteur(nom, prenom);
                 ConducteurDAO conducteurDAO = new ConducteurDAO();
                 conducteurDAO.create(conducteur);
+                currentConducteur = null;
+            }
+            else if (abortParam == null && modifyParam != null)
+            {
+                String nom = request.getParameter("nom");
+                String prenom = request.getParameter("prenom");
+
+                Conducteur conducteur = new Conducteur(currentConducteur.getId(), nom, prenom);
+                ConducteurDAO conducteurDAO = new ConducteurDAO();
+                conducteurDAO.update(conducteur);
+                currentConducteur = null;
             }
             else
             {

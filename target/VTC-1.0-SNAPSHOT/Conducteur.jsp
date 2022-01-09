@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Conducteurs</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -26,8 +26,8 @@
     <c:forEach items="${variable}" var="element">
         <tr>
             <th class="text-center">${element.getId()}</th>
-            <td class="text-center">${element.getNom()}</td>
             <td class="text-center">${element.getPrenom()}</td>
+            <td class="text-center">${element.getNom()}</td>
             <td class="text-center">
                 <form action="${pageContext.request.contextPath}/conducteur-servlet" method="post">
                     <input type="hidden" name="purpose" value="R">
@@ -72,13 +72,13 @@
         <input type="text" class="form-control" id="nomField" name="nom"
                value="${currentConducteur != null ? currentConducteur.getNom() : ""}">
     </div>
-    <button type="submit" name="submit" value="submit" class="btn btn-primary mt-3">
+    <button type="submit" name="${currentConducteur != null ? "Modify" : "Create"}" value="submit" class="btn btn-primary mt-3">
         ${currentConducteur != null ? "Modifier ce conducteur" : "Ajouter ce conducteur"}
     </button>
     <c:if test="${currentConducteur != null }">
-            <button type="submit" name="status" value="Abort" class="btn btn-primary mt-3">
-                Annuler
-            </button>
+        <button type="submit" name="abort" value="Abort" class="btn btn-primary mt-3">
+            Annuler
+        </button>
     </c:if>
 </form>
 <script>
